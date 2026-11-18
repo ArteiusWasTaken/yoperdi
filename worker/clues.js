@@ -8,9 +8,11 @@ import ciencia from './clues/ciencia.js';
 import deportes from './clues/deportes.js';
 import general from './clues/general.js';
 import finals from './clues/final.js';
+import { MORE, MORE_FINALS } from './clues/more.js';
 
-export const BANK = { jalisco, mexico, cine, tv, musica, ciencia, deportes, general };
-export const FINALS = finals;
+const base = { jalisco, mexico, cine, tv, musica, ciencia, deportes, general };
+export const BANK = Object.fromEntries(Object.entries(base).map(([g, cats]) => [g, [...cats, ...(MORE[g] || [])]]));
+export const FINALS = [...finals, ...MORE_FINALS];
 
 // Cuántas categorías de cada grupo salen por ronda (Jalisco y México tienen prioridad).
 const PER_ROUND = { jalisco: 2, mexico: 1 };
